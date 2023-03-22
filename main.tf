@@ -20,10 +20,10 @@ provider "azurerm" {
   features {}
 }
 
-# resource "azurerm_resource_group" "example" {
-#   name     = "terra-rg"
-#   location = "southeastasia"
-# }
+resource "azurerm_resource_group" "example" {
+  name     = "github-rg"
+  location = "southeastasia"
+}
 
 # resource "azurerm_app_service_plan" "example" {
 #   name                = "terra-app-service-plan"
