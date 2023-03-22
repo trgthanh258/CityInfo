@@ -4,14 +4,14 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "= 3.48.0"
     }
-    backend "remote" {
-      # The name of your Terraform Cloud organization.
-      organization = "trgthanh"
+  }
+  backend "remote" {
+    # The name of your Terraform Cloud organization.
+    organization = "trgthanh"
 
-      # The name of the Terraform Cloud workspace to store Terraform state files in.
-      workspaces {
-        name = "city-info-terra"
-      }
+    # The name of the Terraform Cloud workspace to store Terraform state files in.
+    workspaces {
+      name = "city-info-terra"
     }
   }
 }
