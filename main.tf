@@ -18,8 +18,6 @@ terraform {
 
 provider "azurerm" {
   features {}
-  
-  use_cli = false
 }
 
 # resource "azurerm_resource_group" "example" {
