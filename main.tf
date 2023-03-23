@@ -41,16 +41,16 @@ resource "azurerm_app_service" "example" {
   resource_group_name = azurerm_resource_group.example.name
   app_service_plan_id = azurerm_app_service_plan.example.id
 
+  source_control {
+    repo_url               = "https://github.com/trgthanh258/CityInfo/"
+    branch                 = "master"
+  }
+
   site_config {
     dotnet_framework_version = "v6.0"
     vnet_route_all_enabled   = true
+    scm_type = "GitHub"
   }
-}
-
-resource "azurerm_app_service_source_control" "example" {
-  app_id    = azurerm_app_service.example.id
-  repo_url  = "https://github.com/trgthanh258/CityInfo/"
-  branch    = "master"
 }
 
 resource "azurerm_app_service_source_control_token" "example" {
