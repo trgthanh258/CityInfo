@@ -21,11 +21,15 @@ provider "azurerm" {
 }
 
 variable "ARM_SUBSCRIPTION_ID" {
-  
+  type = string
+  default = ""
+
 }
 
 variable "ARM_CLIENT_ID" {
-  
+  type = string
+  default = ""
+
 }
 
 resource "azurerm_resource_group" "example" {
