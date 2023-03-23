@@ -51,6 +51,7 @@ resource "azurerm_app_service_source_control" "example" {
   app_id                 = azurerm_app_service.example.id
   repo_url               = "https://github.com/trgthanh258/CityInfo/"
   branch                 = "master"
+  scm_type               = "GitHub"
   github_action_configuration {
     generate_workflow_file = false
   }
