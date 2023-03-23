@@ -18,13 +18,10 @@ terraform {
 
 provider "azurerm" {
   features {}
-  
-  subscription_id = "00807001-a54f-4771-8db2-9a41187c0552"
-  tenant_id = "e8fda047-42bd-436f-a410-64918b7d1697"
 }
 
 resource "azurerm_resource_group" "example" {
-  name     = "github-rg"
+  name     = "terra-rg"
   location = "southeastasia"
 }
 
