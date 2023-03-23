@@ -5,7 +5,7 @@ terraform {
       version = "= 3.48.0"
     }
   }
-  backend "remote" {
+  cloud {
     # The name of your Terraform Cloud organization.
     organization = "trgthanh258"
 
@@ -40,16 +40,17 @@ resource "azurerm_app_service" "example" {
   location            = azurerm_resource_group.example.location
   resource_group_name = azurerm_resource_group.example.name
   app_service_plan_id = azurerm_app_service_plan.example.id
+}
 
-  source_control {
-    repo_url = "https://github.com/trgthanh258/CityInfo"
-    branch   = "master"  
-  }
+resource "azurerm_app_service_source_control" "example" {
+  app_id    = azurerm_app_service.example.id
+  repo_url  = "https://github.com/trgthanh258/CityInfo/"
+  branch    = "master"
 }
 
 resource "azurerm_app_service_source_control_token" "example" {
   type  = "GitHub"
-  token = "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"
+  token = "7e57735e77e577e57"
 }
 
 # resource "azurerm_api_management" "example" {
