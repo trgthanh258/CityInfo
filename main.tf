@@ -56,6 +56,7 @@ resource "azurerm_app_service" "example" {
   site_config {
     dotnet_framework_version = "v6.0"
     vnet_route_all_enabled   = true
+    scm_type    = "GitHub"
   }
 
   source_control {
