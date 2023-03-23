@@ -20,18 +20,6 @@ provider "azurerm" {
   features {}
 }
 
-variable "ARM_SUBSCRIPTION_ID" {
-  type = string
-  default = ""
-
-}
-
-variable "ARM_CLIENT_ID" {
-  type = string
-  default = ""
-
-}
-
 resource "azurerm_resource_group" "example" {
   name     = "terra-rg"
   location = "southeastasia"
@@ -56,13 +44,13 @@ resource "azurerm_app_service" "example" {
   site_config {
     dotnet_framework_version = "v6.0"
     vnet_route_all_enabled   = true
-    scm_type    = "GitHub"
+    scm_type = "GitHub"
   }
 
-  source_control {
-    repo_url               = "https://github.com/trgthanh258/CityInfo/"
-    branch                 = "master"
-  }
+#   source_control {
+#     repo_url               = "https://github.com/trgthanh258/CityInfo/"
+#     branch                 = "master"
+#   }
 }
 
 # resource "azurerm_api_management" "example" {
