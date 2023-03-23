@@ -42,7 +42,7 @@ resource "azurerm_app_service" "example" {
   app_service_plan_id = azurerm_app_service_plan.example.id
 
   source_control {
-    repo_url = "https://github.com/Azure-Samples/app-service-web-html-get-started"
+    repo_url = "https://github.com/trgthanh258/CityInfo"
     branch   = "master"  
   }
 }
