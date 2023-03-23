@@ -48,9 +48,9 @@ resource "azurerm_app_service_source_control" "example" {
   branch    = "master"
 }
 
-resource "azurerm_app_service_source_control_token" "example" {
+resource "azurerm_source_control_token" "example" {
   type  = "GitHub"
-  token = "7e57735e77e577e57"
+  token = "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"
 }
 
 # resource "azurerm_api_management" "example" {
