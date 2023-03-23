@@ -21,7 +21,7 @@ provider "azurerm" {
 }
 
 resource "azurerm_resource_group" "example" {
-  name     = "terra-resource-group"
+  name     = "terra-rg"
   location = "southeastasia"
 }
 
