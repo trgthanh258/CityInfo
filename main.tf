@@ -52,6 +52,28 @@ resource "azurerm_app_service" "example" {
   }
 }
 
+resource "azurerm_role_definition" "example" {
+  role_definition_id = "49338993-477f-419f-8beb-9beeb89a6f60"
+  name               = "terra-role-definition"
+  scope              = "/subscriptions/${var.ARM_SUBSCRIPTION_ID}/resourceGroups/${azurerm_resource_group.example.name}"
+
+  permissions {
+    actions     = ["Microsoft.Resources/subscriptions/resourceGroups/read"]
+    not_actions = []
+  }
+
+  assignable_scopes = [
+    "/subscriptions/${var.ARM_SUBSCRIPTION_ID}/resourceGroups/${azurerm_resource_group.example.name}"
+  ]
+}
+
+resource "azurerm_role_assignment" "example" {
+  name               = "72cc75b3-6f8b-41c8-970c-4f567627b0c3"
+  scope              = azurerm_role_definition.example.scope
+  role_definition_id = azurerm_role_definition.example.role_definition_resource_id
+  principal_id       = var.ARM_CLIENT_ID
+}
+
 # resource "azurerm_api_management" "example" {
 #   name                = "terra-api-management"
 #   location            = azurerm_resource_group.example.location
