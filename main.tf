@@ -35,11 +35,11 @@ resource "azurerm_app_service_plan" "example" {
   }
 }
 
-resource "azurerm_app_service" "example" {
+resource "azurerm_windows_web_app" "example" {
   name                = "terra-appservice"
   location            = azurerm_resource_group.example.location
   resource_group_name = azurerm_resource_group.example.name
-  app_service_plan_id = azurerm_app_service_plan.example.id
+  service_plan_id     = azurerm_app_service_plan.example.id
 
   site_config {
     dotnet_framework_version = "v6.0"
@@ -48,10 +48,9 @@ resource "azurerm_app_service" "example" {
 }
 
 resource "azurerm_app_service_source_control" "example" {
-  app_id                 = azurerm_app_service.example.id
+  app_id                 = azurerm_windows_web_app.example.id
   repo_url               = "https://github.com/trgthanh258/CityInfo/"
   branch                 = "master"
-  scm_type               = "GitHub"
   github_action_configuration {
     generate_workflow_file = false
   }
