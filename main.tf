@@ -74,6 +74,7 @@ resource "azurerm_api_management_api" "example" {
   display_name        = "City Information APIs"
   description         = "An City Information APIs"
   protocols           = ["https"]
+  revision            = 1
   resource_group_name = azurerm_resource_group.example.name
   api_management_name = azurerm_api_management.example.name
 }
