@@ -61,11 +61,11 @@ jobs:
       - name: Build with dotnet
         run: dotnet build CityInfo.sln --configuration Release
 
-      - name: dotnet publish
+      - name: Publish
         run: dotnet publish CityInfo.sln -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
-      - name: copy database
-        run: copy CityInfo.db Release/${{env.DOTNET_ROOT}}/myapp
+      - name: Copy database
+        run: cp CityInfo.db Release${{env.DOTNET_ROOT}}/myapp
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
