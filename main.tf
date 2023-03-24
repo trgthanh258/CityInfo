@@ -80,52 +80,52 @@ resource "azurerm_api_management_api" "example" {
   api_management_name = azurerm_api_management.example.name
 }
 
-# resource "azurerm_api_management_api_operation" "example" {
-#   operation_id            = "get-cities-operation"
-#   display_name            = "Get Cities Operation"
-#   api_name                = azurerm_api_management_api.example.name
-#   api_management_name     = azurerm_api_management.example.name
-#   resource_group_name     = azurerm_api_management_api.example.resource_group_name
-#   method                  = "GET"
-#   url_template            = "/cities"
-#   description             = "Get all cities."
+resource "azurerm_api_management_api_operation" "example" {
+  operation_id            = "get-cities-operation"
+  display_name            = "Get Cities Operation"
+  api_name                = azurerm_api_management_api.example.name
+  api_management_name     = azurerm_api_management.example.name
+  resource_group_name     = azurerm_api_management_api.example.resource_group_name
+  method                  = "GET"
+  url_template            = "/cities"
+  description             = "Get all cities."
 
-#   response {
-#     status_code = 200
-#   }
-# }
+  response {
+    status_code = 200
+  }
+}
 
-# resource "azurerm_api_management_backend" "example" {
-#   name                = "terra-backend"
-#   url                 = "https://${azurerm_app_service.example.default_site_hostname}"
-#   protocol            = "http"
-#   api_management_name = azurerm_api_management.example.name
-#   resource_group_name = azurerm_resource_group.example.name
-# }
+resource "azurerm_api_management_backend" "example" {
+  name                = "terra-apim-backend"
+  url                 = "https://${azurerm_app_service.example.default_site_hostname}"
+  protocol            = "http"
+  api_management_name = azurerm_api_management.example.name
+  resource_group_name = azurerm_resource_group.example.name
+}
 
-# resource "azurerm_api_management_api_operation_policy" "example" {
-#   api_name             = azurerm_api_management_api.example.name
-#   resource_group_name = azurerm_resource_group.example.name
-#   api_management_name  = azurerm_api_management.example.name
-#   operation_id       = azurerm_api_management_api_operation.example.operation_id
-#   xml_content          = <<XML
-#     <policies>
-#       <inbound>
-#         <base />
-#         <set-backend-service base-url="https://${azurerm_api_management_backend.example.url}" />
-#       </inbound>
-#       <backend>
-#         <base />
-#       </backend>
-#       <outbound>
-#         <base />
-#       </outbound>
-#       <on-error>
-#         <base />
-#       </on-error>
-#     </policies>
-#     XML
-# }
+resource "azurerm_api_management_api_operation_policy" "example" {
+  api_name             = azurerm_api_management_api.example.name
+  resource_group_name = azurerm_resource_group.example.name
+  api_management_name  = azurerm_api_management.example.name
+  operation_id       = azurerm_api_management_api_operation.example.operation_id
+  xml_content          = <<XML
+    <policies>
+      <inbound>
+        <base />
+        <set-backend-service base-url="https://${azurerm_api_management_backend.example.url}" />
+      </inbound>
+      <backend>
+        <base />
+      </backend>
+      <outbound>
+        <base />
+      </outbound>
+      <on-error>
+        <base />
+      </on-error>
+    </policies>
+    XML
+}
 
 # resource "azurerm_api_management_api_release" "example" {
 #   name                 = "terra-release"
