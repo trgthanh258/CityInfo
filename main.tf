@@ -40,6 +40,12 @@ resource "azurerm_app_service" "example" {
   location            = azurerm_resource_group.example.location
   resource_group_name = azurerm_resource_group.example.name
   app_service_plan_id = azurerm_app_service_plan.example.id
+
+  connection_string {
+    name  = "CityInfoDBConnectionString"
+    type  = "Custom"
+    value = "Data Source=CityInfo.db"
+  }
 }
 
 resource "azurerm_app_service_source_control" "example" {
