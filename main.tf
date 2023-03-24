@@ -59,26 +59,26 @@ resource "azurerm_source_control_token" "example" {
   token = "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"
 }
 
-# resource "azurerm_api_management" "example" {
-#   name                = "terra-api-management"
-#   location            = azurerm_resource_group.example.location
-#   resource_group_name = azurerm_resource_group.example.name
-#   publisher_name      = "Terra API Management"
-#   publisher_email     = "trgthanh258@gmail.com"
+resource "azurerm_api_management" "example" {
+  name                = "terra-api-management"
+  location            = azurerm_resource_group.example.location
+  resource_group_name = azurerm_resource_group.example.name
+  publisher_name      = "Terra API Management"
+  publisher_email     = "trgthanh258@gmail.com"
 
-#   sku_name = "Developer_1"
-# }
+  sku_name = "Developer_1"
+}
 
-# resource "azurerm_api_management_api" "example" {
-#   name                = "terra-api"
-#   display_name        = "Terra API"
-#   description         = "An Terra API"
-#   path                = "cities"
-#   protocols           = ["https"]
-#   revision            = "1"
-#   resource_group_name = azurerm_resource_group.example.name
-#   api_management_name = azurerm_api_management.example.name
-# }
+resource "azurerm_api_management_api" "example" {
+  name                = "get-cities-api"
+  display_name        = "Get Cities API"
+  description         = "An Get Cities API"
+  path                = "cities"
+  protocols           = ["https"]
+  revision            = "1"
+  resource_group_name = azurerm_resource_group.example.name
+  api_management_name = azurerm_api_management.example.name
+}
 
 # resource "azurerm_api_management_api_operation" "example" {
 #   operation_id            = "get-cities-operation"
