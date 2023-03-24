@@ -53,6 +53,20 @@ resource "azurerm_source_control_token" "example" {
   token = "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"
 }
 
+// Configure Azure Active Directory Application to Trust a GitHub Repository
+resource "azuread_application" "example" {
+  display_name = "terra_read_app"
+}
+
+resource "azuread_application_federated_identity_credential" "example" {
+  application_object_id = azuread_application.example.object_id
+  display_name          = "city-info-deploy"
+  description           = "Deployments for CityInfo"
+  audiences             = ["api://AzureADTokenExchange"]
+  issuer                = "https://token.actions.githubusercontent.com"
+  subject               = "repo:trgthanh258/CityInfo:environment:Production"
+}
+
 # resource "azurerm_api_management" "example" {
 #   name                = "terra-api-management"
 #   location            = azurerm_resource_group.example.location
