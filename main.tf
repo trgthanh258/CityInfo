@@ -75,6 +75,7 @@ resource "azurerm_api_management_api" "example" {
   description         = "An City Information APIs"
   protocols           = ["https"]
   revision            = 1
+  path                = "api"
   resource_group_name = azurerm_resource_group.example.name
   api_management_name = azurerm_api_management.example.name
 }
@@ -86,7 +87,6 @@ resource "azurerm_api_management_api_operation" "example" {
   api_management_name     = azurerm_api_management.example.name
   resource_group_name     = azurerm_api_management_api.example.resource_group_name
   method                  = "GET"
-  path                    = "api"
   url_template            = "/cities"
   description             = "Get all cities."
 
