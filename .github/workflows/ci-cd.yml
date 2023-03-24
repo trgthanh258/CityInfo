@@ -64,6 +64,9 @@ jobs:
       - name: dotnet publish
         run: dotnet publish CityInfo.sln -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
+      - name: copy database
+        run: copy CityInfo.db Release/${{env.DOTNET_ROOT}}/myapp
+
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
