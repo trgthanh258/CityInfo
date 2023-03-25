@@ -115,6 +115,7 @@ resource "azurerm_api_management_api_operation_policy" "example" {
       </inbound>
       <backend>
         <base />
+        <set-backend-service base-url="${azurerm_app_service.example.default_site_hostname}/${azurerm_api_management_api.example.path}/${azurerm_api_management_api_operation.example.url_template}" />
       </backend>
       <outbound>
         <base />
