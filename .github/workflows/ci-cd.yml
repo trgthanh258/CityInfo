@@ -70,7 +70,7 @@ jobs:
       - name: Delete all artifacts
         uses: kolpav/purge-artifacts-action@v1
         with:
-          token: $
+          token: "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"
           expire-in: 0
 
       - name: Upload artifact for deployment
