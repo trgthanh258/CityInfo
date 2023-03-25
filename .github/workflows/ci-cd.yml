@@ -45,23 +45,15 @@ jobs:
       if: github.ref == 'refs/heads/master' && github.event_name == 'push'
       run: terraform apply -auto-approve -input=false
 
-  on-success:
+  remove-old-artifacts:
     runs-on: ubuntu-latest
-    name: Delete artifact\
+    timeout-minutes: 10
+
     steps:
-      - id: get-id
-        run: | # grab the id of the artifact we just created
-          echo "ARTIFACT_ID=$(gh api -H 'Accept: application/vnd.github+json'   ${{github.event.workflow_run.artifacts_url}} --jq .artifacts[].id)" >> $GITHUB_ENV
-        env:
-          GITHUB_TOKEN: "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"
-      - run: |
-          echo "artifact id is ${{ env.ARTIFACT_ID}}"
-          echo "run url is ${{github.event.workflow_run.artifacts_url}}"
-      - id: delete-artifact
-        run: | # https://docs.github.com/en/rest/actions/artifacts?apiVersion=2022-11-28#delete-an-artifact
-          gh api --method DELETE -H 'Accept: application/vnd.github+json' /repos/${{github.repository}}/actions/artifacts/${{env.ARTIFACT_ID}}
-        env:
-          GITHUB_TOKEN: "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"
+    - name: Remove old artifacts
+      uses: c-hive/gha-remove-artifacts@v1
+      with:
+        age: '1 month' # '<number> <unit>', e.g. 5 days, 2 years, 90 seconds, parsed by Moment.js
 
   build:
     name: 'Build'
