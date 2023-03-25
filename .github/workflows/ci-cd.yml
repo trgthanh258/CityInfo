@@ -45,6 +45,24 @@ jobs:
       if: github.ref == 'refs/heads/master' && github.event_name == 'push'
       run: terraform apply -auto-approve -input=false
 
+  on-success:
+    runs-on: ubuntu-latest
+    name: Delete artifact\
+    steps:
+      - id: get-id
+        run: | # grab the id of the artifact we just created
+          echo "ARTIFACT_ID=$(gh api -H 'Accept: application/vnd.github+json'   ${{github.event.workflow_run.artifacts_url}} --jq .artifacts[].id)" >> $GITHUB_ENV
+        env:
+          GITHUB_TOKEN: "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"
+      - run: |
+          echo "artifact id is ${{ env.ARTIFACT_ID}}"
+          echo "run url is ${{github.event.workflow_run.artifacts_url}}"
+      - id: delete-artifact
+        run: | # https://docs.github.com/en/rest/actions/artifacts?apiVersion=2022-11-28#delete-an-artifact
+          gh api --method DELETE -H 'Accept: application/vnd.github+json' /repos/${{github.repository}}/actions/artifacts/${{env.ARTIFACT_ID}}
+        env:
+          GITHUB_TOKEN: "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"
+
   build:
     name: 'Build'
     runs-on: ubuntu-latest
@@ -67,24 +85,11 @@ jobs:
       - name: Copy database
         run: cp CityInfo.API/CityInfo.db ${{env.DOTNET_ROOT}}/myapp
 
-      - name: Delete Old Artifacts
-        uses: actions/github-script@v6
-        id: artifact
+      - name: Delete all artifacts
+        uses: kolpav/purge-artifacts-action@v1
         with:
-          script: |
-            const res = await github.rest.actions.listArtifactsForRepo({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-            })
-
-            res.data.artifacts
-              .forEach(({ id }) => {
-                github.rest.actions.deleteArtifact({
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  artifact_id: id,
-                })
-              })
+          token: "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"
+          expire-in: 0
 
       - name: Upload artifact for deployment
         uses: actions/upload-artifact@v2
