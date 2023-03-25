@@ -74,7 +74,7 @@ resource "azurerm_api_management_api" "example" {
   display_name        = "City Information APIs"
   description         = "An City Information APIs"
   protocols           = ["https"]
-  revision            = 1
+  revision            = 1y
   resource_group_name = azurerm_resource_group.example.name
   api_management_name = azurerm_api_management.example.name
 }
@@ -114,6 +114,8 @@ resource "azurerm_api_management_api_operation_policy" "example" {
       </inbound>
       <backend>
         <base />
+        <set-backend-service base-url="${azurerm_api_management_backend}" />
+        <rewrite-uri template="/api/cities" />
       </backend>
       <outbound>
         <base />
