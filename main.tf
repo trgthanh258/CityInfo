@@ -87,7 +87,7 @@ resource "azurerm_api_management_api_operation" "example" {
   api_management_name     = azurerm_api_management.example.name
   resource_group_name     = azurerm_api_management_api.example.resource_group_name
   method                  = "GET"
-  url_template            = "/cities"
+  url_template            = "cities"
   description             = "Get all cities."
 
   response {
