@@ -113,8 +113,7 @@ resource "azurerm_api_management_api_operation_policy" "example" {
         <base />
       </inbound>
       <backend>
-        <set-backend-service base-url="${azurerm_api_management_backend.example.url}" />
-        <rewrite-uri template="/api/cities" />
+        <set-backend-service base-url="${azurerm_api_management_backend.example.url}/api/cities" />
       </backend>
       <outbound>
         <base />
