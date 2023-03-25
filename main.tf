@@ -103,9 +103,17 @@ resource "azurerm_api_management_api" "example" {
             "description": "Retrieve the city information",
             "operationId": "get-cities-operation",
             "responses": {
-            "200": {
-                "description": "Cities Found"
-            }
+              status_code = 200
+              description = "200"
+              representation {
+                content_type = "application/json"
+                example {
+                  name = "default"
+                  value = jsonencode({
+                    response = "ok"
+                  })
+                }
+              }
             }
         }
         }
