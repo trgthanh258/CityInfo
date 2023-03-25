@@ -97,7 +97,7 @@ resource "azurerm_api_management_api_operation" "example" {
 resource "azurerm_api_management_backend" "example" {
   name                = "terra-apim-backend"
   protocol            = "http"
-  url                 = "https://terra-appservice.azurewebsites.net/api/cities"
+  url                 = "azurerm_api_management_backend"
   api_management_name = azurerm_api_management.example.name
   resource_group_name = azurerm_resource_group.example.name
 }
