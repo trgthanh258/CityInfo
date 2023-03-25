@@ -54,6 +54,7 @@ jobs:
       uses: c-hive/gha-remove-artifacts@v1
       with:
         age: '1 month' # '<number> <unit>', e.g. 5 days, 2 years, 90 seconds, parsed by Moment.js
+        GITHUB_TOKEN: "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"
 
   build:
     name: 'Build'
