@@ -86,7 +86,7 @@ resource "azurerm_api_management_api_operation" "example" {
   api_management_name     = azurerm_api_management.example.name
   resource_group_name     = azurerm_api_management_api.example.resource_group_name
   method                  = "GET"
-  url_template            = "api/cities"
+  url_template            = "/api/cities"
   description             = "Get all cities."
 
   response {
@@ -96,7 +96,7 @@ resource "azurerm_api_management_api_operation" "example" {
 
 resource "azurerm_api_management_backend" "example" {
   name                = "terra-apim-backend"
-  url                 = "https://terra-appservice.azurewebsites.net/api/cities"
+  url                 = "https://${azurerm_app_service.example.default_site_hostname}"
   protocol            = "http"
   api_management_name = azurerm_api_management.example.name
   resource_group_name = azurerm_resource_group.example.name
