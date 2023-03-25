@@ -45,17 +45,6 @@ jobs:
       if: github.ref == 'refs/heads/master' && github.event_name == 'push'
       run: terraform apply -auto-approve -input=false
 
-  remove-old-artifacts:
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-
-    steps:
-    - name: Remove old artifacts
-      uses: c-hive/gha-remove-artifacts@v1
-      with:
-        age: '1 month' # '<number> <unit>', e.g. 5 days, 2 years, 90 seconds, parsed by Moment.js
-        GITHUB_TOKEN: "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"
-
   build:
     name: 'Build'
     runs-on: ubuntu-latest
@@ -78,16 +67,17 @@ jobs:
       - name: Copy database
         run: cp CityInfo.API/CityInfo.db ${{env.DOTNET_ROOT}}/myapp
 
-      - name: Delete all artifacts
-        uses: kolpav/purge-artifacts-action@v1
+      steps:
+      - name: Remove old artifacts
+        uses: c-hive/gha-remove-artifacts@v1
         with:
-          token: "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"
-          expire-in: 0
+          age: '1 month' # '<number> <unit>', e.g. 5 days, 2 years, 90 seconds, parsed by Moment.js
+          GITHUB_TOKEN: ${{ secrets.PAT_ACCESS_TOKEN }}
 
       - name: Upload artifact for deployment
         uses: actions/upload-artifact@v2
         with:
-          name: .city-app
+          name: .net-app
           path: ${{env.DOTNET_ROOT}}/myapp
 
   deploy:
