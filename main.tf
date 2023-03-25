@@ -75,7 +75,6 @@ resource "azurerm_api_management_api" "example" {
   description         = "An City Information APIs"
   protocols           = ["https"]
   revision            = 1
-  path                = "api"
   resource_group_name = azurerm_resource_group.example.name
   api_management_name = azurerm_api_management.example.name
 }
@@ -87,7 +86,7 @@ resource "azurerm_api_management_api_operation" "example" {
   api_management_name     = azurerm_api_management.example.name
   resource_group_name     = azurerm_api_management_api.example.resource_group_name
   method                  = "GET"
-  url_template            = "cities"
+  url_template            = "api/cities"
   description             = "Get all cities."
 
   response {
@@ -112,7 +111,6 @@ resource "azurerm_api_management_api_operation_policy" "example" {
     <policies>
       <inbound>
         <base />
-        <set-backend-service base-url="${azurerm_api_management_backend.example.url}/${azurerm_api_management_api.example.path}/${azurerm_api_management_api_operation.example.url_template}" />
       </inbound>
       <backend>
         <base />
