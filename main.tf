@@ -75,8 +75,44 @@ resource "azurerm_api_management_api" "example" {
   description         = "An City Information APIs"
   protocols           = ["https"]
   revision            = 1
+  path                = "api"
   resource_group_name = azurerm_resource_group.example.name
   api_management_name = azurerm_api_management.example.name
+  import {
+    content_format = "swagger-json"
+    content_value  = <<JSON
+    {
+    "info": {
+        "title": "CityInfo API v1",
+        "description": "City Information API v1",
+        "contact": {
+        "name": "Thanh Luong",
+        "email": "trgthanh258@gmail.com"
+        },
+        "version": "v1"
+    },
+    "servers": [
+        {
+        "url": "https://${azurerm_app_service.example.default_site_hostname}"
+        }
+    ],
+    "paths": {
+        "/cities": {
+        "get": {
+            "summary": "Get Cities",
+            "description": "Retrieve the city information",
+            "operationId": "get-cities-operation",
+            "responses": {
+            "200": {
+                "description": "Cities Found"
+            }
+            }
+        }
+        }
+    }
+    }
+    JSON
+  }
 }
 
 resource "azurerm_api_management_api_operation" "example" {
@@ -86,7 +122,7 @@ resource "azurerm_api_management_api_operation" "example" {
   api_management_name     = azurerm_api_management.example.name
   resource_group_name     = azurerm_api_management_api.example.resource_group_name
   method                  = "GET"
-  url_template            = "{*url}"
+  url_template            = "/cities"
   description             = "Get all cities."
 
   response {
