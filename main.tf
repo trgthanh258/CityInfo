@@ -112,10 +112,10 @@ resource "azurerm_api_management_api_operation_policy" "example" {
     <policies>
       <inbound>
         <base />
+        <set-backend-service base-url="${azurerm_api_management_backend.example.url}/${azurerm_api_management_api.example.path}/${azurerm_api_management_api_operation.example.url_template}" />
       </inbound>
       <backend>
         <base />
-        <set-backend-service base-url="${azurerm_api_management_backend.example.url}/${azurerm_api_management_api.example.path}/${azurerm_api_management_api_operation.example.url_template}" />
       </backend>
       <outbound>
         <base />
