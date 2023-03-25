@@ -86,7 +86,7 @@ resource "azurerm_api_management_api_operation" "example" {
   api_management_name     = azurerm_api_management.example.name
   resource_group_name     = azurerm_api_management_api.example.resource_group_name
   method                  = "GET"
-  url_template            = "/api/cities"
+  url_template            = "api/cities"
   description             = "Get all cities."
 
   response {
@@ -113,7 +113,7 @@ resource "azurerm_api_management_api_operation_policy" "example" {
         <base />
       </inbound>
       <backend>
-        <set-backend-service base-url="https://${azurerm_app_service.example.default_site_hostname}/${azurerm_api_management_api_operation.example.url_template}" />
+        <set-backend-service base-url="https://${azurerm_app_service.example.default_site_hostname}" />
       </backend>
       <outbound>
         <base />
