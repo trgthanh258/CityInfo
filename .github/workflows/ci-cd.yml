@@ -67,11 +67,24 @@ jobs:
       - name: Copy database
         run: cp CityInfo.API/CityInfo.db ${{env.DOTNET_ROOT}}/myapp
 
-      - name: Delete all artifacts
-        uses: kolpav/purge-artifacts-action@v1
+      - name: Delete Old Artifacts
+        uses: actions/github-script@v6
+        id: artifact
         with:
-          token: "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"
-          expire-in: 0
+          script: |
+            const res = await github.rest.actions.listArtifactsForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+            })
+
+            res.data.artifacts
+              .forEach(({ id }) => {
+                github.rest.actions.deleteArtifact({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  artifact_id: id,
+                })
+              })
 
       - name: Upload artifact for deployment
         uses: actions/upload-artifact@v2
