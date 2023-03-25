@@ -67,6 +67,12 @@ jobs:
       - name: Copy database
         run: cp CityInfo.API/CityInfo.db ${{env.DOTNET_ROOT}}/myapp
 
+      - name: Delete all artifacts
+        uses: kolpav/purge-artifacts-action@v1
+        with:
+          token: $
+          expire-in: 0
+
       - name: Upload artifact for deployment
         uses: actions/upload-artifact@v2
         with:
