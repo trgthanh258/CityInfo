@@ -49,9 +49,9 @@ resource "azurerm_app_service" "example" {
 }
 
 resource "azurerm_app_service_source_control" "example" {
-  app_id   = azurerm_app_service.example.id
-  repo_url = "https://github.com/trgthanh258/CityInfo/"
-  branch   = "master"
+  app_id    = azurerm_app_service.example.id
+  repo_url  = "https://github.com/trgthanh258/CityInfo/"
+  branch    = "master"
 }
 
 resource "azurerm_source_control_token" "example" {
@@ -103,19 +103,20 @@ resource "azurerm_api_management_api" "example" {
             "description": "Retrieve the city information",
             "operationId": "get-cities-operation",
             "responses": {
-              status_code: 200
-              description:"200"
-              representation {
-                content_type: "application/json"
-                example {
-                  name: "default"
-                  value: jsonencode({
-                    response: "ok"
-                  })
+              "200": {
+                  "description": "Cities Found",
+                  "representation" {
+                    content_type: "application/json"
+                    example {
+                      name: "default"
+                      value: jsonencode({
+                        response: "ok"
+                      })
+                    }
+                  }
                 }
               }
-            }
-        }
+          }
         }
     }
     }
@@ -124,14 +125,14 @@ resource "azurerm_api_management_api" "example" {
 }
 
 resource "azurerm_api_management_api_operation" "example" {
-  operation_id        = "get-cities-operation"
-  display_name        = "Get Cities Operation"
-  api_name            = azurerm_api_management_api.example.name
-  api_management_name = azurerm_api_management.example.name
-  resource_group_name = azurerm_api_management_api.example.resource_group_name
-  method              = "GET"
-  url_template        = "/cities"
-  description         = "Get all cities."
+  operation_id            = "get-cities-operation"
+  display_name            = "Get Cities Operation"
+  api_name                = azurerm_api_management_api.example.name
+  api_management_name     = azurerm_api_management.example.name
+  resource_group_name     = azurerm_api_management_api.example.resource_group_name
+  method                  = "GET"
+  url_template            = "/cities"
+  description             = "Get all cities."
 
   response {
     status_code = 200
@@ -147,11 +148,11 @@ resource "azurerm_api_management_backend" "example" {
 }
 
 resource "azurerm_api_management_api_operation_policy" "example" {
-  api_name            = azurerm_api_management_api.example.name
+  api_name             = azurerm_api_management_api.example.name
   resource_group_name = azurerm_resource_group.example.name
-  api_management_name = azurerm_api_management.example.name
-  operation_id        = azurerm_api_management_api_operation.example.operation_id
-  xml_content         = <<XML
+  api_management_name  = azurerm_api_management.example.name
+  operation_id       = azurerm_api_management_api_operation.example.operation_id
+  xml_content          = <<XML
     <policies>
       <inbound>
         <base />
