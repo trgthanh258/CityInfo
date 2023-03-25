@@ -67,7 +67,6 @@ jobs:
       - name: Copy database
         run: cp CityInfo.API/CityInfo.db ${{env.DOTNET_ROOT}}/myapp
 
-      steps:
       - name: Remove old artifacts
         uses: c-hive/gha-remove-artifacts@v1
         with:
