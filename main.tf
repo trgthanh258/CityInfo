@@ -105,7 +105,7 @@ resource "azurerm_api_management_api" "example" {
             "responses": {
               "200": {
                   "description": "Cities Found",
-                  "representation" {
+                  "representation": {
                     content_type: "application/json"
                     example {
                       name: "default"
