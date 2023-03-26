@@ -117,6 +117,31 @@ resource "azurerm_api_management_api_operation" "example" {
   }
 }
 
+resource "azurerm_api_management_api_operation" "authenticate" {
+  operation_id            = "authenticated-operation"
+  display_name            = "Authenticated Operation"
+  api_name                = azurerm_api_management_api.example.name
+  api_management_name     = azurerm_api_management.example.name
+  resource_group_name     = azurerm_api_management_api.example.resource_group_name
+  method                  = "POST"
+  url_template            = "api/authentication/authenticate"
+  description             = "Authenticate."
+
+  response {
+    status_code = 200
+    description = "Authenticate Token generated"
+    representation {
+      content_type = "application/json"
+      example {
+        name = "default"
+        value = jsonencode({
+          response = "ok"
+        })
+      }
+    }
+  }
+}
+
 resource "azurerm_api_management_backend" "example" {
   name                = "terra-apim-backend"
   url                 = "https://${azurerm_app_service.example.default_site_hostname}"
@@ -130,6 +155,29 @@ resource "azurerm_api_management_api_operation_policy" "example" {
   resource_group_name = azurerm_resource_group.example.name
   api_management_name  = azurerm_api_management.example.name
   operation_id       = azurerm_api_management_api_operation.example.operation_id
+  xml_content          = <<XML
+    <policies>
+      <inbound>
+        <set-backend-service base-url="${azurerm_api_management_backend.example.url}" />
+      </inbound>
+      <backend>
+        <base />
+      </backend>
+      <outbound>
+        <base />
+      </outbound>
+      <on-error>
+        <base />
+      </on-error>
+    </policies>
+    XML
+}
+
+resource "azurerm_api_management_api_operation_policy" "authenticate" {
+  api_name             = azurerm_api_management_api.example.name
+  resource_group_name = azurerm_resource_group.example.name
+  api_management_name  = azurerm_api_management.example.name
+  operation_id       = azurerm_api_management_api_operation.authenticate.operation_id
   xml_content          = <<XML
     <policies>
       <inbound>
