@@ -152,3 +152,39 @@ resource "azurerm_api_management_api_operation_policy" "example" {
 #   name                 = "terra-release"
 #   api_id               = azurerm_api_management_api.example.id
 # }
+
+
+# Demo
+resource "azurerm_resource_group" "city" {
+  name     = "city-rg"
+  location = "southeastasia"
+}
+
+resource "azurerm_app_service_plan" "city" {
+  name                = "city-app-service-plan"
+  location            = azurerm_resource_group.city.location
+  resource_group_name = azurerm_resource_group.city.name
+  sku {
+    tier = "Standard"
+    size = "S1"
+  }
+}
+
+resource "azurerm_app_service" "city" {
+  name                = "city-appservice"
+  location            = azurerm_resource_group.city.location
+  resource_group_name = azurerm_resource_group.city.name
+  app_service_plan_id = azurerm_app_service_plan.city.id
+
+  connection_string {
+    name  = "CityInfoDBConnectionString"
+    type  = "Custom"
+    value = "Data Source=CityInfo.db"
+  }
+}
+
+resource "azurerm_app_service_source_control" "city" {
+  app_id    = azurerm_app_service.city.id
+  repo_url  = "https://github.com/trgthanh258/CityInfo/"
+  branch    = "master"
+}
