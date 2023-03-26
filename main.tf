@@ -69,10 +69,16 @@ resource "azurerm_api_management" "example" {
   sku_name = "Developer_1"
 }
 
+data "azurerm_api_management_user" "example" {
+  user_id             = "00807001-a54f-4771-8db2-9a41187c0552"
+  api_management_name = azurerm_api_management.example.name
+  resource_group_name = azurerm_api_management.example.resource_group_name
+}
+
 resource "azurerm_api_management_subscription" "example" {
   api_management_name = azurerm_api_management.example.name
   resource_group_name = azurerm_api_management.example.resource_group_name
-  user_id             = "00807001-a54f-4771-8db2-9a41187c0552"
+  user_id             = data.azurerm_api_management_user.example.id
   display_name        = "OCP APIM Subsription"
 }
 
