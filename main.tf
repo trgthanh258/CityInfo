@@ -104,7 +104,7 @@ resource "azurerm_api_management_api_operation" "example" {
 
   response {
     status_code = 200
-    description = "200"
+    description = "City information found"
     representation {
       content_type = "application/json"
       example {
