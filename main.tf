@@ -69,6 +69,13 @@ resource "azurerm_api_management" "example" {
   sku_name = "Developer_1"
 }
 
+resource "azurerm_api_management_subscription" "example" {
+  api_management_name = azurerm_api_management.example.name
+  resource_group_name = azurerm_api_management.example.resource_group_name
+  user_id             = "00807001-a54f-4771-8db2-9a41187c0552"
+  display_name        = "OCP APIM Subsription"
+}
+
 resource "azurerm_api_management_api" "example" {
   name                = "get-cities-api"
   display_name        = "City Information APIs"
@@ -91,6 +98,16 @@ resource "azurerm_api_management_api_operation" "example" {
 
   response {
     status_code = 200
+    description = "200"
+    representation {
+      content_type = "application/json"
+      example {
+        name = "default"
+        value = jsonencode({
+          response = "ok"
+        })
+      }
+    }
   }
 }
 
