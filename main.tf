@@ -70,7 +70,7 @@ resource "azurerm_api_management" "example" {
 }
 
 data "azurerm_api_management_user" "example" {
-  user_id             = "trgthanh258@gmail.com"
+  user_id             = "fa90f48d-52da-4b80-928a-c882cf341f3c	"
   api_management_name = azurerm_api_management.example.name
   resource_group_name = azurerm_api_management.example.resource_group_name
 }
