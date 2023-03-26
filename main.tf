@@ -133,10 +133,10 @@ resource "azurerm_api_management_api_operation_policy" "example" {
   xml_content          = <<XML
     <policies>
       <inbound>
-        <base />
+        <set-backend-service base-url="${azurerm_api_management_backend.example.url}" />
       </inbound>
       <backend>
-        <set-backend-service base-url="https://${azurerm_app_service.example.default_site_hostname}" />
+        <base />
       </backend>
       <outbound>
         <base />
