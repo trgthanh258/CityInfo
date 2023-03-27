@@ -199,12 +199,12 @@ resource "azurerm_api_management_api_operation_policy" "authenticate" {
 
 # Demo
 resource "azurerm_resource_group" "city" {
-  name     = "terra-rg"
+  name     = "city-rg"
   location = "southeastasia"
 }
 
 resource "azurerm_app_service_plan" "city" {
-  name                = "terra-app-service-plan"
+  name                = "city-app-service-plan"
   location            = azurerm_resource_group.city.location
   resource_group_name = azurerm_resource_group.city.name
   sku {
@@ -214,7 +214,7 @@ resource "azurerm_app_service_plan" "city" {
 }
 
 resource "azurerm_app_service" "city" {
-  name                = "terra-appservice"
+  name                = "city-appservice"
   location            = azurerm_resource_group.city.location
   resource_group_name = azurerm_resource_group.city.name
   app_service_plan_id = azurerm_app_service_plan.city.id
