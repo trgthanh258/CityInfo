@@ -60,7 +60,7 @@ resource "azurerm_app_service_source_control" "example" {
 
 resource "azurerm_source_control_token" "example" {
   type  = "GitHub"
-  token = "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"
+  token = "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"
 }
 
 resource "azurerm_api_management" "example" {
