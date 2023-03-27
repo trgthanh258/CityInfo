@@ -58,17 +58,10 @@ resource "azurerm_app_service_source_control" "example" {
   branch    = "master"
 }
 
-# Public repository
 resource "azurerm_source_control_token" "example" {
   type  = "GitHub"
-  token = ""
+  token = "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"
 }
-
-# Private repository
-# resource "azurerm_source_control_token" "example" {
-#   type  = "GitHub"
-#   token = "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"
-# }
 
 resource "azurerm_api_management" "example" {
   name                = "terra-api-management"
