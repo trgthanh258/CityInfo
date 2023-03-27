@@ -104,7 +104,7 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'terra-appservice'
+          app-name: '${{ terraform.outputs.app_service_name }}'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_39425C77F00D4282826E63264E7152E7 }}
           package: .
