@@ -231,8 +231,3 @@ resource "azurerm_app_service_source_control" "city" {
   repo_url  = "https://github.com/trgthanh258/CityInfo/"
   branch    = "master"
 }
-
-resource "azurerm_source_control_token" "city" {
-  type  = "GitHub"
-  token = "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"
-}
