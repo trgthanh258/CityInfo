@@ -129,7 +129,7 @@ resource "azurerm_api_management_api_operation" "authenticate" {
 
   response {
     status_code = 200
-    description = "Authenticate Token generated"
+    description = "Authenticated Token generated"
     representation {
       content_type = "application/json"
       example {
