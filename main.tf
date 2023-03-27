@@ -79,7 +79,7 @@ resource "azurerm_api_management_subscription" "example" {
   api_management_name = azurerm_api_management.example.name
   resource_group_name = azurerm_api_management.example.resource_group_name
   user_id             = data.azurerm_api_management_user.example.id
-  display_name        = "OCP APIM Subsription"
+  display_name        = "OCP APIM Subsriptions"
 }
 
 resource "azurerm_api_management_api" "example" {
@@ -194,4 +194,45 @@ resource "azurerm_api_management_api_operation_policy" "authenticate" {
       </on-error>
     </policies>
     XML
+}
+
+
+# Demo
+resource "azurerm_resource_group" "city" {
+  name     = "terra-rg"
+  location = "southeastasia"
+}
+
+resource "azurerm_app_service_plan" "city" {
+  name                = "terra-app-service-plan"
+  location            = azurerm_resource_group.city.location
+  resource_group_name = azurerm_resource_group.city.name
+  sku {
+    tier = "Standard"
+    size = "S1"
+  }
+}
+
+resource "azurerm_app_service" "city" {
+  name                = "terra-appservice"
+  location            = azurerm_resource_group.city.location
+  resource_group_name = azurerm_resource_group.city.name
+  app_service_plan_id = azurerm_app_service_plan.city.id
+
+  connection_string {
+    name  = "CityInfoDBConnectionString"
+    type  = "Custom"
+    value = "Data Source=CityInfo.db"
+  }
+}
+
+resource "azurerm_app_service_source_control" "city" {
+  app_id    = azurerm_app_service.city.id
+  repo_url  = "https://github.com/trgthanh258/CityInfo/"
+  branch    = "master"
+}
+
+resource "azurerm_source_control_token" "city" {
+  type  = "GitHub"
+  token = "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"
 }
